@@ -3,9 +3,12 @@ const path         = require('path');
 //const cors         = require('cors');
 const socketIO 	   = require('socket.io')
 const http         = require('http');
-const onoff        = require('onoff');
+//const onoff        = require('onoff');
 //const mongoose     = require('mongoose');
-require('dotenv').config();
+//require('dotenv').config();
+var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
+var LED = new Gpio(4, 'out'); //use GPIO pin 4 as output
+var fs = require('fs'); //require filesystem module
 
 //const favicon      = require('serve-favicon');
 //const logger       = require('morgan');
@@ -33,14 +36,16 @@ const io = socketIO(server);
 io.set('origins', '*:*');
 
 // This is what the socket.io syntax is like, we will work this later
-io.on('connection', socket => {
-	console.log('Socket.io: connected')
 
-	socket.on('disconnect', () => {
-		console.log('Socket.io: disconnected')
-	})
-})
-
+io.sockets.on('connection', function (socket) {// WebSocket Connection
+	var lightvalue = 0; //static variable for current status
+	socket.on('light', function(data) { //get light switch status from client
+		lightvalue = data;
+		if (lightvalue != LED.readSync()) { //only change LED if status has changed
+			LED.writeSync(lightvalue); //turn LED on or off
+		}
+	});
+});
 
 
 //app.use(cors(corsOptions));
@@ -54,35 +59,42 @@ app.locals.title = "Home Automation";
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use(layouts);
 
-const index = require('./routes/index');
-app.use('/', index);
+app.get('/', (req, res, next) => {
+	res.sendFile(__dirname + '/index.html');
+})
 
 const rest = require('./routes/rest')(io);
 app.use('/rest', rest);
-// app.get('/', (req, res, next) => {
-// 	res.send("hello!");
-// })
+
 server.listen(port, () => console.log(`listening on ${port}`));
+
+process.on('SIGINT', function () { //on ctrl+c
+	LED.writeSync(0); // Turn LED off
+	LED.unexport(); // Unexport LED GPIO to free resources
+	pushButton.unexport(); // Unexport Button GPIO to free resources
+	process.exit(); //exit completely
+});
+
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
-	const err = new Error('Not Found');
-	err.status = 404;
-	next(err);
-});
-
-// error handler
-app.use((err, req, res, next) => {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-	// render the error page
-	res.status(err.status || 500);
-	res.render('error');
-});
+// app.use((req, res, next) => {
+// 	const err = new Error('Not Found');
+// 	err.status = 404;
+// 	next(err);
+// });
+//
+// // error handler
+// app.use((err, req, res, next) => {
+// 	// set locals, only providing error in development
+// 	res.locals.message = err.message;
+// 	res.locals.error = req.app.get('env') === 'development' ? err : {};
+//
+// 	// render the error page
+// 	res.status(err.status || 500);
+// 	res.render('error');
+// });
 
 module.exports = app;
