@@ -4,7 +4,8 @@
 	"description": "Home automation server",
 	"main": "server.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node ./bin/www"
 	},
 	"author": "Ihor Bodnarchuk",
 	"license": "ISC",
@@ -13,9 +14,7 @@
 		"dotenv": "^4.0.0",
 		"express": "^4.16.2",
 		"nodemon": "^1.14.12",
-		"onoff": "^1.1.9",
 		"request": "^2.83.0",
-		"socket.io": "^2.0.4",
-		"update": "^0.7.4"
+		"socket.io": "^2.0.4"
 	}
 }
