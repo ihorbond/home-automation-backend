@@ -22,13 +22,34 @@ window.addEventListener("load", function(){ //when page loads
 	lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
 		socket.emit("light", Number(this.checked)); //send button status to server (as 1 or 0)
 	});
+
+	const tvPower = document.getElementById("tv-power");
+	tvPower.addEventListener("click", () => {
+		socket.emit("tv-power", "power on/off");
+	});
+
+	const tvVolUp = document.getElementById("tv-vol-up");
+	tvPower.addEventListener("click", () => {
+		socket.emit("tv-vol-up", "volume up");
+	});
+
+	const tvVolDown = document.getElementById("tv-vol-down");
+	tvPower.addEventListener("click", () => {
+		socket.emit("tv-vol-down", "volume down");
+	});
+
+	const tvInput = $('#tv-input');
+	tvPower.addEventListener("click", () => {
+		socket.emit("tv-input", "tv input");
+	});
+
 });
 // socket.on('light', function (data) { //get button status from client
 // 	document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
 // 	socket.emit("light", data); //send push button status to back to server
 // });
 </script>
-<script src="js/tvRemote.js"></script>
+<!-- <script src="js/tvRemote.js"></script> -->
 </div>
 </body>
 </html>
