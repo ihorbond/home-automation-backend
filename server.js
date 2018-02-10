@@ -3,11 +3,10 @@ const path         = require('path');
 //const cors         = require('cors');
 const socketIO 	   = require('socket.io')
 const http         = require('http');
-//const onoff        = require('onoff');
+
 //const mongoose     = require('mongoose');
 require('dotenv').config();
-var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
-var LED = new Gpio(4, 'out'); //use GPIO pin 4 as output
+
 var fs = require('fs'); //require filesystem module
 
 //const favicon      = require('serve-favicon');
@@ -35,28 +34,7 @@ const server = http.createServer(app);
 const io = socketIO(server);
 io.set('origins', '*:*');
 
-// This is what the socket.io syntax is like, we will work this later
-
-io.sockets.on('connection', function (socket) {// WebSocket Connection
-	var lightvalue = 0; //static variable for current status
-	socket.on('light', function(data) { //get light switch status from client
-		lightvalue = data;
-		if (lightvalue != LED.readSync()) { //only change LED if status has changed
-			LED.writeSync(lightvalue); //turn LED on or off
-		}
-	});
-	socket.on('tv-power', (msg) =>{
-		console.log(msg);
-	});
-	socket.on('tv-vol-up', (msg) =>{
-		console.log(msg);
-	});
-	socket.on('tv-vol-down', (msg) =>{
-		console.log(msg);
-	});
-});
-
-
+require('./sockets/sockets.js')(io);
 //app.use(cors(corsOptions));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -67,6 +45,7 @@ app.locals.title = "Home Automation";
 //app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(__dirname + '/public'));
 //app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
@@ -79,13 +58,10 @@ app.get('/', (req, res, next) => {
 const rest = require('./routes/rest')(io);
 app.use('/rest', rest);
 
+
 server.listen(port, () => console.log(`listening on ${port}`));
 
-process.on('SIGINT', function () { //on ctrl+c
-	LED.writeSync(0); // Turn LED off
-	LED.unexport(); // Unexport LED GPIO to free resources
-	process.exit(); //exit completely
-});
+
 
 // catch 404 and forward to error handler
 // app.use((req, res, next) => {

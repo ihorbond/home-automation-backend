@@ -1,55 +1,64 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<title>ManCave</title>
+	<link rel="stylesheet" href="/css/tv-remote.min.css">
+</head>
 <body>
 <div id="Main">
 <h2 style="display:inline">Equalizer On/Off</h2>
 <input type="checkbox" id="eq">
+<button style="display:block" id="subwoofer">Wireless Subwoofer</button>
 <div id="tv-remote">
-	<h1>Tv Remote</h1>
-	<button class="tv-remote-button" id="tv-power">On/Off </button>
-	<button class="tv-remote-button" id="volume-up">Vol+ </button>
-	<button class="tv-remote-button" id="volume-down">Vol- <button>
+	<div id="tv-input-mic-power">
+		<button class="tv-remote-button" id="tv-input"></button>
+		<button class="tv-remote-button" id="tv-mic"></button>
+		<button class="tv-remote-button" id="tv-power"></button>
+	</div>
+	<div id="tv-numpad">
+		<button class="tv-remote-button" id="tv-numpad-1"></button>
+		<button class="tv-remote-button" id="tv-numpad-2"></button>
+		<button class="tv-remote-button" id="tv-numpad-3"></button>
+		<br>
+		<button class="tv-remote-button" id="tv-numpad-4"></button>
+		<button class="tv-remote-button" id="tv-numpad-5"></button>
+		<button class="tv-remote-button" id="tv-numpad-6"></button>
+		<br>
+		<button class="tv-remote-button" id="tv-numpad-7"></button>
+		<button class="tv-remote-button" id="tv-numpad-8"></button>
+		<button class="tv-remote-button" id="tv-numpad-9"></button>
+		<br>
+		<button class="tv-remote-button" id="tv-numpad-dot"></button>
+		<button class="tv-remote-button" id="tv-numpad-0"></button>
+		<button class="tv-remote-button" id="tv-numpad-display"></button>
+	</div>
+	<div id=tv-volume>
+		<button class="tv-remote-button" id="tv-vol-up"></button>
+		<br>
+		<button class="tv-remote-button" id="tv-vol-down"></button>
+	</div>
+
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> <!-- include socket.io client side script -->
 <script
 	src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
+	<script type="text/javascript" src="/js/tvRemote.js"></script>
 <script>
-var socket = io(); //load socket.io-client and connect to the host that serves the page
-window.addEventListener("load", function(){ //when page loads
-	var lightbox = document.getElementById("eq");
-	lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
-		socket.emit("light", Number(this.checked)); //send button status to server (as 1 or 0)
+const socket = io(); //load socket.io-client and connect to the host that serves the page
+window.addEventListener("load", () => { //when page loads
+	const eq = document.getElementById("eq");
+	eq.addEventListener("change", () => { //add event listener for when checkbox changes
+		socket.emit("eq", Number(this.checked)); //send button status to server (as 1 or 0)
 	});
-
-	const tvPower = document.getElementById("tv-power");
-	tvPower.addEventListener("click", () => {
-		socket.emit("tv-power", "power on/off");
-	});
-
-	const tvVolUp = document.getElementById("tv-vol-up");
-	tvPower.addEventListener("click", () => {
-		socket.emit("tv-vol-up", "volume up");
-	});
-
-	const tvVolDown = document.getElementById("tv-vol-down");
-	tvPower.addEventListener("click", () => {
-		socket.emit("tv-vol-down", "volume down");
-	});
-
-	const tvInput = $('#tv-input');
-	tvPower.addEventListener("click", () => {
-		socket.emit("tv-input", "tv input");
-	});
-
 });
 // socket.on('light', function (data) { //get button status from client
 // 	document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
 // 	socket.emit("light", data); //send push button status to back to server
 // });
 </script>
-<!-- <script src="js/tvRemote.js"></script> -->
+
 </div>
 </body>
 </html>
