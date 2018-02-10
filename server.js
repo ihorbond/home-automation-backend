@@ -5,7 +5,7 @@ const socketIO 	   = require('socket.io')
 const http         = require('http');
 //const onoff        = require('onoff');
 //const mongoose     = require('mongoose');
-//require('dotenv').config();
+require('dotenv').config();
 var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 var LED = new Gpio(4, 'out'); //use GPIO pin 4 as output
 var fs = require('fs'); //require filesystem module
@@ -45,6 +45,15 @@ io.sockets.on('connection', function (socket) {// WebSocket Connection
 			LED.writeSync(lightvalue); //turn LED on or off
 		}
 	});
+	socket.on('tv-power', (msg) =>{
+		console.log(msg);
+	});
+	socket.on('tv-vol-up', (msg) =>{
+		console.log(msg);
+	});
+	socket.on('tv-vol-down', (msg) =>{
+		console.log(msg);
+	});
 });
 
 
@@ -75,7 +84,6 @@ server.listen(port, () => console.log(`listening on ${port}`));
 process.on('SIGINT', function () { //on ctrl+c
 	LED.writeSync(0); // Turn LED off
 	LED.unexport(); // Unexport LED GPIO to free resources
-	pushButton.unexport(); // Unexport Button GPIO to free resources
 	process.exit(); //exit completely
 });
 

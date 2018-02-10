@@ -3,21 +3,32 @@
 <body>
 <div id="Main">
 <h2 style="display:inline">Equalizer On/Off</h2>
-<input type="checkbox" id="light">
+<input type="checkbox" id="eq">
+<div id="tv-remote">
+	<h1>Tv Remote</h1>
+	<button class="tv-remote-button" id="tv-power">On/Off </button>
+	<button class="tv-remote-button" id="volume-up">Vol+ </button>
+	<button class="tv-remote-button" id="volume-down">Vol- <button>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> <!-- include socket.io client side script -->
+<script
+	src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
 <script>
 var socket = io(); //load socket.io-client and connect to the host that serves the page
 window.addEventListener("load", function(){ //when page loads
-	var lightbox = document.getElementById("light");
+	var lightbox = document.getElementById("eq");
 	lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
 		socket.emit("light", Number(this.checked)); //send button status to server (as 1 or 0)
 	});
 });
-socket.on('light', function (data) { //get button status from client
-	document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
-	socket.emit("light", data); //send push button status to back to server
-});
+// socket.on('light', function (data) { //get button status from client
+// 	document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
+// 	socket.emit("light", data); //send push button status to back to server
+// });
 </script>
+<script src="js/tvRemote.js"></script>
 </div>
 </body>
 </html>
