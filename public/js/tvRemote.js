@@ -7,7 +7,7 @@ $(document).ready(()=> {
 	subwoofer.addEventListener("click", () => {
 		socket.emit("subwoofer", "WirelessSubwoofer");
 	});
- 
+
 	//input-mic-power
 	const tvPower = document.getElementById("tv-power");
 	tvPower.addEventListener("click", () => {
@@ -20,14 +20,14 @@ $(document).ready(()=> {
 	});
 
 	//volume
-	const tvVolUp = document.getElementById("tv-vol-up");
+	const tvVolUp = document.getElementById("vol-up");
 	tvVolUp.addEventListener("click", () => {
-		socket.emit("tv-vol-up", "VolumeUp");
+		socket.emit("vol-up", "VolumeUp");
 	});
 
-	const tvVolDown = document.getElementById("tv-vol-down");
+	const tvVolDown = document.getElementById("vol-down");
 	tvVolDown.addEventListener("click", () => {
-		socket.emit("tv-vol-down", "VolumeDown");
+		socket.emit("vol-down", "VolumeDown");
 	});
 
 	//numpad

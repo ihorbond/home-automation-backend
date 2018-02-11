@@ -11,6 +11,16 @@ module.exports = (io) => {
 
 	io.on('connection', socket => {
 		console.log("sockets connected");
+
+		//equalizer
+		let eqValue = 0; //static variable for current status
+		socket.on('eq', data => { //get light switch status from client
+			eqValue = data;
+			if (eqValue != EQ.readSync()) { //only change LED if status has changed
+				EQ.writeSync(eqValue); //turn LED on or off
+			}
+		});
+		
 		//tv remote
 		bravia(tvIP, tvPSK, client => {
 			// List available commands
@@ -44,16 +54,18 @@ module.exports = (io) => {
 				client.exec(action);
 				console.log(action);
 			});
+
+			//volume
+			socket.on('vol-up', action => {
+				client.exec(action);
+				console.log(action);
+			});
+			socket.on('vol-down', action => {
+				client.exec(action);
+				console.log(action);
+			});
 		});
 
-		//equalizer
-		let eqValue = 0; //static variable for current status
-		socket.on('eq', data => { //get light switch status from client
-			eqValue = data;
-			if (eqValue != EQ.readSync()) { //only change LED if status has changed
-				EQ.writeSync(eqValue); //turn LED on or off
-			}
-		});
 	});
 
 
