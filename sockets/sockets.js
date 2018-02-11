@@ -1,26 +1,26 @@
 module.exports = (io) => {
 
 	const socketIO = require('socket.io');
-	//const onoff = require('onoff');
+	const onoff = require('onoff');
 	const bravia  = require('./../bravia/lib');
 	const tvIP   = process.env.TV_IP_ADDRESS;
 	const tvPSK  = process.env.TV_PSK_KEY;
 
 	const Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
-	let EQ = new Gpio(4, 'out');
+	const EQ = new Gpio(4, 'out');
 
 	io.on('connection', socket => {
 		console.log("sockets connected");
 
 		//equalizer
 		let eqValue = 0; //static variable for current status
-		socket.on('eq', data => { //get light switch status from client
+		socket.on('eq', data => {
 			eqValue = data;
-			if (eqValue != EQ.readSync()) { //only change LED if status has changed
-				EQ.writeSync(eqValue); //turn LED on or off
+			if (eqValue != EQ.readSync()) {
+				EQ.writeSync(eqValue);
 			}
 		});
-		
+
 		//tv remote
 		bravia(tvIP, tvPSK, client => {
 			// List available commands

@@ -45,20 +45,7 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 	<script type="text/javascript" src="/js/tvRemote.js"></script>
-<script>
-const socket = io(); //load socket.io-client and connect to the host that serves the page
-window.addEventListener("load", () => { //when page loads
-	const eq = document.getElementById("eq");
-	eq.addEventListener("change", () => { //add event listener for when checkbox changes
-		socket.emit("eq", Number(this.checked)); //send button status to server (as 1 or 0)
-	});
-});
-// socket.on('light', function (data) { //get button status from client
-// 	document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
-// 	socket.emit("light", data); //send push button status to back to server
-// });
-</script>
-
+	<script type="text/javascript" src="/js/equalizer.js"></script>
 </div>
 </body>
 </html>
