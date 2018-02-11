@@ -5,7 +5,7 @@ $(document).ready(()=> {
 
 	const eq = document.getElementById("eq");
 	eq.addEventListener("change", () => { //add event listener for when checkbox changes
-		socket.emit('eq', Number(this.checked)); //send button status to server (as 1 or 0)
+		socket.emit('eq', Number(eq.checked)); //send button status to server (as 1 or 0)
 	});
 		
 	});
