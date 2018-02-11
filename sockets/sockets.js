@@ -15,6 +15,7 @@ module.exports = (io) => {
 		//equalizer
 		let eqValue = 0; //static variable for current status
 		socket.on('eq', data => {
+			console.log("eq emit received: " + data)
 			eqValue = data;
 			if (eqValue != EQ.readSync()) {
 				EQ.writeSync(eqValue);

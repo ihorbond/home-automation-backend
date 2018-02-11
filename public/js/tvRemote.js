@@ -37,12 +37,12 @@ $(document).ready(()=> {
 	});
 
 	const num2 = document.getElementById("tv-numpad-2");
-	num1.addEventListener("click", () => {
+	num2.addEventListener("click", () => {
 		socket.emit("num2", "Num2");
 	});
 
 	const num3 = document.getElementById("tv-numpad-3");
-	num1.addEventListener("click", () => {
+	num3.addEventListener("click", () => {
 		socket.emit("num3", "Num3");
 	});
 
