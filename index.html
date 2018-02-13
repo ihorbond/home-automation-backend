@@ -3,47 +3,85 @@
 <head>
 	<title>ManCave</title>
 	<link rel="stylesheet" href="/css/tv-remote.min.css">
+	<link rel="stylesheet" href="/css/index.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> <!-- include socket.io client side script -->
+	<script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+	<!-- <script src="http://www.stepanreznikov.com/js-shortcuts/jquery.shortcuts.min.js"></script> -->
 </head>
 <body>
 <div id="Main">
 <h2 style="display:inline">Equalizer On/Off</h2>
 <input type="checkbox" id="eq">
-<button style="display:block" id="subwoofer">Wireless Subwoofer</button>
-<div id="tv-remote">
-	<div id="tv-input-mic-power">
-		<button class="tv-remote-button" id="tv-input"></button>
-		<button class="tv-remote-button" id="tv-mic"></button>
-		<button class="tv-remote-button" id="tv-power"></button>
-	</div>
-	<div id="tv-numpad">
-		<button class="tv-remote-button" id="tv-numpad-1"></button>
-		<button class="tv-remote-button" id="tv-numpad-2"></button>
-		<button class="tv-remote-button" id="tv-numpad-3"></button>
-		<br>
-		<button class="tv-remote-button" id="tv-numpad-4"></button>
-		<button class="tv-remote-button" id="tv-numpad-5"></button>
-		<button class="tv-remote-button" id="tv-numpad-6"></button>
-		<br>
-		<button class="tv-remote-button" id="tv-numpad-7"></button>
-		<button class="tv-remote-button" id="tv-numpad-8"></button>
-		<button class="tv-remote-button" id="tv-numpad-9"></button>
-		<br>
-		<button class="tv-remote-button" id="tv-numpad-dot"></button>
-		<button class="tv-remote-button" id="tv-numpad-0"></button>
-		<button class="tv-remote-button" id="tv-numpad-display"></button>
-	</div>
-	<div id=tv-volume>
-		<button class="tv-remote-button" id="vol-up"></button>
-		<br>
-		<button class="tv-remote-button" id="vol-down"></button>
-	</div>
+<!-- <button style="display:block" id="subwoofer">Wireless Subwoofer</button> -->
+<!-- <button type="submit" id="tv-submit-command">Submit</button> -->
+<br/> <br/>
+<!-- <button class="tv-remote-button" id="android-menu">Android Menu</button> -->
+<div id="tv-remote-wrapper">
+<div id="tv-remote-wrapper">
+		<input id="tv-command-input" placeholder="Enter command"/>
+		<div id="tv-remote">
+			<div id="tv-input-mic-power">
+				<button class="tv-remote-button" id="tv-input"></button>
+				<button class="tv-remote-button" id="tv-mic"></button>
+				<button class="tv-remote-button" id="tv-power"></button>
+			</div>
+			<div id="tv-numpad">
+				<button class="tv-remote-button" id="tv-numpad-1"></button>
+				<button class="tv-remote-button" id="tv-numpad-2"></button>
+				<button class="tv-remote-button" id="tv-numpad-3"></button>
+				<br>
+				<button class="tv-remote-button" id="tv-numpad-4"></button>
+				<button class="tv-remote-button" id="tv-numpad-5"></button>
+				<button class="tv-remote-button" id="tv-numpad-6"></button>
+				<br>
+				<button class="tv-remote-button" id="tv-numpad-7"></button>
+				<button class="tv-remote-button" id="tv-numpad-8"></button>
+				<button class="tv-remote-button" id="tv-numpad-9"></button>
+				<br>
+				<button class="tv-remote-button" id="tv-numpad-dot"></button>
+				<button class="tv-remote-button" id="tv-numpad-0"></button>
+				<button class="tv-remote-button" id="tv-numpad-display"></button>
+			</div>
+			<div id=tv-volume>
+				<button class="tv-remote-button" id="vol-up"></button>
+				<br>
+				<button class="tv-remote-button" id="vol-down"></button>
+			</div>
+			<div id="tv-entertainment">
+				<button class="tv-remote-button" id="google-play"></button>
+				<button class="tv-remote-button" id="netflix"></button>
+			</div>
+			<div id="tv-action-menu">
+				<!-- <button class="tv-remote-button" id="action-actionMenu"></button> -->
+				<!-- <br>
+				<button class="tv-remote-button" id="action-tv"></button>
+				<button class="tv-remote-button" id="action-guide"></button>
+				<br> -->
+				<!-- <button class="tv-remote-button" id="action-back"></button>
+				<button class="tv-remote-button" id="action-home"></button> -->
 
+				<br>
+				<!-- <button class="tv-remote-button" id="action-discover"></button> -->
+			</div>
+			<div id="tv-navigation">
+				<button class="tv-remote-button" id="nav-up"></button>
+				<br>
+				<button class="tv-remote-button" id="nav-left"></button>
+				<button class="tv-remote-button" id="nav-center"></button>
+				<button class="tv-remote-button" id="nav-right"></button>
+				<br>
+				<button class="tv-remote-button" id="nav-down"></button>
+			</div>
+
+			<div id="tv-other">
+				<button class="tv-remote-button" id="vol-mute"></button>
+			</div>
+		</div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> <!-- include socket.io client side script -->
-<script
-	src="https://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	crossorigin="anonymous"></script>
+</div>
 	<script type="text/javascript" src="/js/tvRemote.js"></script>
 	<script type="text/javascript" src="/js/equalizer.js"></script>
 </div>

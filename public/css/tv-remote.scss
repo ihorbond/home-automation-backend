@@ -1,9 +1,19 @@
 $remoteMarginLeft: 32px;
+$remoteWidth: 207px;
+$remoteHeigh: 800px;
 
+#tv-remote-wrapper {
+	width: $remoteWidth;
+}
+#tv-command-input {
+	display: block;
+	margin: auto;
+	text-align: center;
+}
 #tv-remote {
-	position: fixed;
-	height: 800px;
-	width: 207px;
+	//float: right;
+	height: $remoteHeigh;
+	width: $remoteWidth;
 	button {
 		background-color: Transparent;
 	}
@@ -49,6 +59,68 @@ $remoteMarginLeft: 32px;
 			width: 32px;
 		}
 	}
+
+	#tv-entertainment{
+		position: relative;
+		left: $remoteMarginLeft;
+		top: 0px;
+		button {
+			margin: 0px 4px 0px 0px;
+			border-radius: 20%;
+			height: 25px;
+			width: 70px;
+		}
+	}
+
+	#tv-navigation{
+		position: relative;
+		left: $remoteMarginLeft + 20px;
+		top: 75px;
+		button {
+			margin: 0px 5px 0px 0px;
+			border-radius: 25%;
+			height: 26px;
+			width: 30px;
+		}
+		#nav-up{
+			margin: 0px 0px 12px 38px
+		}
+		#nav-down {
+			margin: 12px 0px 0px 38px
+		}
+	}
+
+	#tv-action-menu {
+		position: absolute;
+		left: $remoteMarginLeft + 20px;
+		top: 400px;
+		button {
+			margin: 0px 5px 0px 0px;
+			border-radius: 25%;
+			height: 26px;
+			width: 30px;
+		}
+		#action-actionMenu {
+			position: relative;
+			left: $remoteMarginLeft + 20px;
+		}
+		#action-home, #action-back {
+			position: relative;
+			left: -20px;
+			margin: 120px 95px 0px 0px;
+		}
+	}
+
+	#tv-other{
+		#vol-mute {
+			position: relative;
+			top: 163px;
+			left: $remoteMarginLeft + 52px;
+			width: 42px;
+			height: 20px;
+		}
+	}
+
 
 	background-image: url("../img/sony-remote.png");
 	background-size: cover;
