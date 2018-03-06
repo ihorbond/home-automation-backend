@@ -2,8 +2,11 @@
 <html>
 <head>
 	<title>ManCave</title>
-	<link rel="stylesheet" href="/css/tv-remote.min.css">
+	<link rel="stylesheet" href="/css/tv.min.css">
 	<link rel="stylesheet" href="/css/index.min.css">
+	<link rel="stylesheet" href="/css/car.min.css">
+	<link rel="stylesheet" href="/css/other.min.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> <!-- include socket.io client side script -->
 	<script
 		src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -13,13 +16,10 @@
 </head>
 <body>
 <div id="Main">
-<h2 style="display:inline">Equalizer On/Off</h2>
-<input type="checkbox" id="eq">
+
 <!-- <button style="display:block" id="subwoofer">Wireless Subwoofer</button> -->
 <!-- <button type="submit" id="tv-submit-command">Submit</button> -->
-<br/> <br/>
 <!-- <button class="tv-remote-button" id="android-menu">Android Menu</button> -->
-<div id="tv-remote-wrapper">
 <div id="tv-remote-wrapper">
 		<input id="tv-command-input" placeholder="Enter command"/>
 		<div id="tv-remote">
@@ -81,9 +81,24 @@
 			</div>
 		</div>
 </div>
+<div id="car-wrapper">
+	<div id="car-remote">
+		<h2><i class="fas fa-car"></i></h2>
+		<button id="car-lock"><i class="fas fa-lock"></i></button><br />
+		<button id="car-unlock"><i class="fas fa-unlock-alt"></i></button><br />
+		<button id="car-windows">Windows</button><br />
+		<button id="car-trunk">Trunk</button><br />
+		<button id="car-alarm">Alarm</button><br />
+	</div>
 </div>
+<div id="other-wrapper">
+	<input type="checkbox" id="eq" />
+	<h2 style="display:inline">Equalizer</h2>
+</div>
+
 	<script type="text/javascript" src="/js/tvRemote.js"></script>
 	<script type="text/javascript" src="/js/equalizer.js"></script>
+	<script type="text/javascript" src="/js/carRemote.js"></script>
 </div>
 </body>
 </html>

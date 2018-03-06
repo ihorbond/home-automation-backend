@@ -4,6 +4,7 @@ $remoteHeigh: 800px;
 
 #tv-remote-wrapper {
 	width: $remoteWidth;
+	float: left;
 }
 #tv-command-input {
 	display: block;
