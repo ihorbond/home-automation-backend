@@ -39,7 +39,7 @@ require('./sockets/sockets.js')(io);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.locals.title = "Home Automation";
+app.locals.title = "Automation";
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 //app.use(logger('dev'));
