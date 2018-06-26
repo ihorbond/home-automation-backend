@@ -6,6 +6,7 @@ const http         = require('http');
 
 //const mongoose     = require('mongoose');
 require('dotenv').config();
+require('./public/js/input_devices.js');
 
 var fs = require('fs'); //require filesystem module
 
@@ -18,7 +19,7 @@ const bodyParser   = require('body-parser');
 //const session      = require('express-session');
 //const passport     = require('passport');
 //const request      = require('request');
-const port = 4200;
+const port = 1991;
 
 const app = express();
 
@@ -34,22 +35,20 @@ const server = http.createServer(app);
 const io = socketIO(server);
 io.set('origins', '*:*');
 
-require('./sockets/sockets.js')(io);
+
 //app.use(cors(corsOptions));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.locals.title = "Automation";
+app.locals.title = "Ukraineland";
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 //app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(__dirname + '/public'));
+//app.use(express.static(__dirname + '/public'));
 //app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
-
-//app.use(layouts);
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res, next) => {
 	res.sendFile(__dirname + '/index.html');
@@ -57,6 +56,9 @@ app.get('/', (req, res, next) => {
 
 const rest = require('./routes/rest')(io);
 app.use('/rest', rest);
+
+//const sockets = require('./sockets/sockets.js')(io);
+//app.use('/', rest);
 
 
 server.listen(port, () => console.log(`listening on ${port}`));
